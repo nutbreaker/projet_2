@@ -1,6 +1,9 @@
 <?php
-    require 'header.php';
-    require 'oeuvres.php';
+require 'header.php';
+require_once 'database.php';
+
+$db = DBConnection();
+$oeuvres = $db->query('SELECT * FROM oeuvres');
 ?>
 <div id="liste-oeuvres">
     <?php foreach($oeuvres as $oeuvre): ?>
