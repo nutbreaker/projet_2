@@ -1,4 +1,6 @@
 <?php
+require_once 'database.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $isLengthValid = function (string $value, $len = 0) {
         return isset($value) && strlen($value) > $len;
@@ -34,6 +36,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $fields[$key] = htmlentities($_POST[$key]);
+    }
+
+    $isInserted = true;
+    if (empty($errorMessages)) {
+        $db = DBConnection();
+
+        $stmt = $db->prepare('INSERT INTO oeuvres (titre, artiste, image, description) VALUES (:titre, :artiste, :image, :description)');
+        $isInserted = $stmt->execute($fields);
+    }
+
+    if ($isInserted) {
+        header('Location: index.php');
+        exit();
     }
 }
 
