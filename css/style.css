@@ -133,6 +133,11 @@ input[type="submit"] {
     padding: 7px;
 }
 
+.error-message {
+    color: crimson;
+    font-size: .75em;
+}
+
 
 @media (max-width: 850px) {
     .oeuvre {
