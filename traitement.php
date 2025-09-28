@@ -3,7 +3,7 @@ require_once 'database.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $isLengthValid = function (string $value, $len = 0) {
-        return isset($value) && strlen($value) > $len;
+        return isset($value) && strlen(trim($value)) > $len;
     };
     $formFieldsValidator = [
         'titre' => [
