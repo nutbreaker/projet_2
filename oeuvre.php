@@ -1,5 +1,5 @@
 <?php
-    require 'header.php';
+    require_once 'header.php';
     require_once 'database.php';
 
     // Si l'URL ne contient pas d'id, on redirige sur la page d'accueil
@@ -38,4 +38,4 @@
     </div>
 </article>
 
-<?php require 'footer.php'; ?>
+<?php require_once 'footer.php'; ?>
