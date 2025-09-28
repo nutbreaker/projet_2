@@ -2,8 +2,8 @@
 require_once 'header.php';
 require_once 'database.php';
 
-$db = DBConnection();
-$oeuvres = $db->query('SELECT * FROM oeuvres');
+$oeuvres = DataRepository::getOeuvres();
+
 ?>
 <div id="liste-oeuvres">
     <?php foreach($oeuvres as $oeuvre): ?>

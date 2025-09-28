@@ -5,18 +5,10 @@
     // Si l'URL ne contient pas d'id, on redirige sur la page d'accueil
     if(empty($_GET['id'])) {
         header('Location: index.php');
-    }
-
-    $db = DBConnection();
-    $stmt = $db->prepare('SELECT * FROM oeuvres WHERE id = :id');
-    $isSuccess = $stmt->execute([ ':id' => intval($_GET['id']) ]);
-
-    if(!$isSuccess) {
-        header('Location: index.php');
         exit();
     }
 
-    $oeuvre = $stmt->fetch(\PDO::FETCH_ASSOC);
+    $oeuvre = DataRepository::getOeuvreById(intval($_GET['id']));
 
     // Si aucune oeuvre trouvé, on redirige vers la page d'accueil
     if(!$oeuvre) {

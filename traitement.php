@@ -38,15 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fields[$key] = htmlentities($_POST[$key]);
     }
 
-    $isInserted = true;
-    if (empty($errorMessages)) {
-        $db = DBConnection();
-
-        $stmt = $db->prepare('INSERT INTO oeuvres (titre, artiste, image, description) VALUES (:titre, :artiste, :image, :description)');
-        $isInserted = $stmt->execute($fields);
-    }
-
-    if ($isInserted) {
+    if (empty($errorMessages) && DataRepository::insertOeuvre($fields)) {
         header('Location: index.php');
         exit();
     }
