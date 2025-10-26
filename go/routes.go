@@ -67,7 +67,21 @@ func (a *artBox) oeuvre(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *artBox) ajouterGet(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("ajouter GET"))
+	tmpl, err := template.ParseFiles(
+		"./templates/base.html",
+		"./templates/ajouter.html",
+	)
+	if err != nil {
+		log.Print(err.Error())
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.ExecuteTemplate(w, "base", nil)
+	if err != nil {
+		log.Print(err.Error())
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
 }
 
 func (a *artBox) ajouterPost(w http.ResponseWriter, r *http.Request) {
