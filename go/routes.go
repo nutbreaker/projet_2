@@ -55,7 +55,7 @@ func (a *artBox) oeuvre(w http.ResponseWriter, r *http.Request) {
 	oeuvre, err := a.GetOeuvreById(int(id))
 	if err != nil {
 		log.Print(err.Error())
-		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
 
@@ -118,7 +118,7 @@ func (a *artBox) ajouterPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if isFormValid && a.addOeuvre(o) == nil {
-		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
 
