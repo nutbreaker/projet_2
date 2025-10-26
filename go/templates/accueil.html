@@ -5,7 +5,11 @@
     {{ range .oeuvres }}
         <article class="oeuvre">
             <a href="oeuvre/{{.Id}}">
+                {{if isUrl .Image}}
+                <img src="{{.Image}}" alt="{{.Titre}}">
+                {{else}}
                 <img src="/{{.Image}}" alt="{{.Titre}}">
+                {{end}}
                 <h2>{{.Titre}}</h2>
                 <p class="description">{{.Artiste}}</p>
             </a>

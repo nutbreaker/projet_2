@@ -3,7 +3,11 @@
 {{define "main"}}
 <article id="detail-oeuvre">
     <div id="img-oeuvre">
+        {{if isUrl .Image}}
+        <img src="{{.Image}}" alt="{{.Titre}}">
+        {{else}}
         <img src="/{{.Image}}" alt="{{.Titre}}">
+        {{end}}
     </div>
     <div id="contenu-oeuvre">
         <h1>{{.Titre}}</h1>

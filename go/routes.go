@@ -8,7 +8,7 @@ import (
 )
 
 func (a *artBox) accueil(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles(
+	tmpl, err := template.New("accueil").Funcs(a.templateFuncMaps()).ParseFiles(
 		"./templates/base.html",
 		"./templates/accueil.html",
 	)
@@ -35,7 +35,7 @@ func (a *artBox) accueil(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *artBox) oeuvre(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles(
+	tmpl, err := template.New("oeuvre").Funcs(a.templateFuncMaps()).ParseFiles(
 		"./templates/base.html",
 		"./templates/oeuvre.html",
 	)
