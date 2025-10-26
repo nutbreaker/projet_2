@@ -1,0 +1,38 @@
+{{define "title"}}Ajouter une oeuvre{{end}}
+
+{{define "main"}}
+<form action="ajouter" method="POST">
+    <div class="champ-formulaire">
+        <label for="titre">Titre de l'œuvre</label>
+        <input type="text" name="titre" id="titre" value="{{.oeuvre.Titre}}">
+
+        {{ with .error.titre }}
+        <span class="error-message">Le champ titre ne peut être vide.</span>
+        {{ end }}
+    </div>
+    <div class="champ-formulaire">
+        <label for="artiste">Auteur de l'œuvre</label>
+        <input type="text" name="artiste" id="artiste"
+            value="{{.oeuvre.Artiste}}">
+        {{ with .error.artiste }}
+        <span class="error-message">Le champ artiste ne peut être vide.</span>
+        {{ end }}
+    </div>
+    <div class="champ-formulaire">
+        <label for="image">URL de l'image</label>
+        <input type="url" name="image" id="image" value="{{.oeuvre.Image}}">
+        {{ with .error.image }}
+        <span class="error-message">Le champ image doit être une URL.</span>
+        {{ end }}
+    </div>
+    <div class="champ-formulaire">
+        <label for="description">Description</label>
+        <textarea name="description" id="description">{{.oeuvre.Description}}</textarea>
+        {{ with .error.description }}
+        <span class="error-message">Le champ description doit contenir au moins 3 caractères.</span>
+        {{ end }}
+    </div>
+
+    <input type="submit" value="Valider" name="submit">
+</form>
+{{end}}
