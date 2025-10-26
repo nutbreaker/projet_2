@@ -32,3 +32,18 @@ func (a *artBox) GetOeuvres() ([]oeuvre, error) {
 
 	return oeuvres, nil
 }
+
+func (a *artBox) GetOeuvreById(id int) (oeuvre, error) {
+	o := oeuvre{}
+
+	row := a.db.QueryRow("SELECT * FROM oeuvres WHERE id = :id", id)
+	err := row.Scan(
+		&o.Id,
+		&o.Titre,
+		&o.Description,
+		&o.Artiste,
+		&o.Image,
+	)
+
+	return o, err
+}
