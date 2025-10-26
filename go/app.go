@@ -5,6 +5,8 @@ import (
 	"html/template"
 	"net/http"
 	"net/url"
+	"strings"
+	"unicode/utf8"
 )
 
 type artBox struct {
