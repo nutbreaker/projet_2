@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'rule' =>  $isLengthValid
         ],
         'artiste' =>  [
-            'errorMessage' => 'Le champ titre ne peut être vide.',
+            'errorMessage' => 'Le champ artiste ne peut être vide.',
             'rule' =>  $isLengthValid
         ],
         'image' =>  [
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'description' =>  [
             'errorMessage' => 'Le champ description doit contenir au moins 3 caractères.',
             'rule' => function (string $value) use ($isLengthValid) {
-                return $isLengthValid($value, 3);
+                return $isLengthValid($value, 2);
             }
         ],
     ];
