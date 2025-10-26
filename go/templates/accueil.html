@@ -5,7 +5,7 @@
     {{ range .oeuvres }}
         <article class="oeuvre">
             <a href="oeuvre/{{.Id}}">
-                <img src="{{.Image}}" alt="{{.Titre}}">
+                <img src="/{{.Image}}" alt="{{.Titre}}">
                 <h2>{{.Titre}}</h2>
                 <p class="description">{{.Artiste}}</p>
             </a>

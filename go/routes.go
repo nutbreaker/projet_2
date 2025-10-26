@@ -21,6 +21,7 @@ func (a *artBox) accueil(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Print(err.Error())
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
 	}
 
 	err = tmpl.ExecuteTemplate(w, "base", map[string]any{
