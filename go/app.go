@@ -24,6 +24,10 @@ func (a artBox) isUrl(str string) bool {
 	return err == nil && u.Scheme != "" && u.Host != ""
 }
 
+func (a artBox) isLengthValid(str string, length int) bool {
+	return utf8.RuneCountInString(strings.TrimSpace(str)) > length
+}
+
 func (a artBox) templateFuncMaps() template.FuncMap {
 	return template.FuncMap{
 		"isUrl": a.isUrl,
