@@ -47,3 +47,16 @@ func (a *artBox) GetOeuvreById(id int) (oeuvre, error) {
 
 	return o, err
 }
+
+func (a *artBox) addOeuvre(o oeuvre) error {
+	_, err := a.db.Exec(
+		`INSERT INTO oeuvres (titre, description, artiste, image)
+		VALUES (:titre, :description, :artiste, :image)`,
+		o.Titre,
+		o.Description,
+		o.Artiste,
+		o.Image,
+	)
+
+	return err
+}
