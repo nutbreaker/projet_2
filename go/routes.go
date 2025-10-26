@@ -85,5 +85,45 @@ func (a *artBox) ajouterGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *artBox) ajouterPost(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("ajouter POST"))
+	tmpl, err := template.ParseFiles(
+		"./templates/base.html",
+		"./templates/ajouter.html",
+	)
+	if err != nil {
+		log.Print(err.Error())
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	o := oeuvre{
+		Titre:       r.PostFormValue("titre"),
+		Description: r.PostFormValue("description"),
+		Artiste:     r.PostFormValue("artiste"),
+		Image:       r.PostFormValue("image"),
+	}
+
+	data := map[string]any{
+		"oeuvre": o,
+		"error": map[string]bool{
+			"titre":       !a.isLengthValid(o.Titre, 0),
+			"description": !a.isLengthValid(o.Description, 2),
+			"artiste":     !a.isLengthValid(o.Artiste, 0),
+			"image":       !a.isUrl(o.Image),
+		},
+	}
+
+	isFormValid := true
+	for _, value := range data["error"].(map[string]bool) {
+		isFormValid = isFormValid && !value
+	}
+
+	if isFormValid && a.addOeuvre(o) == nil {
+		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+		return
+	}
+
+	if err = tmpl.ExecuteTemplate(w, "base", data); err != nil {
+		log.Print(err.Error())
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
 }
