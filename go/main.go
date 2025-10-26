@@ -17,12 +17,20 @@ func main() {
 	defer db.Close()
 
 	artBoxApp := newArtBox(db)
-	fs := http.FileServer(http.Dir("../img/"))
-	artBoxApp.mux.Handle("/img/", http.StripPrefix("/img/", fs))
-	artBoxApp.mux.HandleFunc("GET /{$}", artBoxApp.home)
+
+	// Image files
+	fsImg := http.FileServer(http.Dir("../img/"))
+	artBoxApp.mux.Handle("/img/", http.StripPrefix("/img/", fsImg))
+
+	// CSS files
+	fsCss := http.FileServer(http.Dir("../css/"))
+	artBoxApp.mux.Handle("/css/", http.StripPrefix("/css/", fsCss))
+
+	// Routes
+	artBoxApp.mux.HandleFunc("GET /{$}", artBoxApp.accueil)
 	artBoxApp.mux.HandleFunc("GET /oeuvre/{id}", artBoxApp.oeuvre)
-	artBoxApp.mux.HandleFunc("GET /ajouer", artBoxApp.ajouterGet)
-	artBoxApp.mux.HandleFunc("POST /ajouer", artBoxApp.ajouterPost)
+	artBoxApp.mux.HandleFunc("GET /ajouter", artBoxApp.ajouterGet)
+	artBoxApp.mux.HandleFunc("POST /ajouter", artBoxApp.ajouterPost)
 
 	server := http.Server{
 		Addr:    ":6969",
