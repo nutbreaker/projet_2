@@ -1,0 +1,15 @@
+{{define "title"}}Accueil{{end}}
+
+{{define "main"}}
+<div id="liste-oeuvres">
+    {{ range .oeuvres }}
+        <article class="oeuvre">
+            <a href="oeuvre/{{.Id}}">
+                <img src="{{.Image}}" alt="{{.Titre}}">
+                <h2>{{.Titre}}</h2>
+                <p class="description">{{.Artiste}}</p>
+            </a>
+        </article>
+    {{ end }}
+</div>
+{{end}}
