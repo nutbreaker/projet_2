@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 func (a *artBox) accueil(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +35,35 @@ func (a *artBox) accueil(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *artBox) oeuvre(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("oeuvre"))
+	tmpl, err := template.ParseFiles(
+		"./templates/base.html",
+		"./templates/oeuvre.html",
+	)
+	if err != nil {
+		log.Print(err.Error())
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	id, err := strconv.ParseInt(r.PathValue("id"), 10, 0)
+	if err != nil {
+		log.Print(err.Error())
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	oeuvre, err := a.GetOeuvreById(int(id))
+	if err != nil {
+		log.Print(err.Error())
+		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+		return
+	}
+
+	err = tmpl.ExecuteTemplate(w, "base", oeuvre)
+	if err != nil {
+		log.Print(err.Error())
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
 }
 
 func (a *artBox) ajouterGet(w http.ResponseWriter, r *http.Request) {
