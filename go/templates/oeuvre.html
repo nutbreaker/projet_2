@@ -1,0 +1,16 @@
+{{define "title"}}{{.Artiste}}, {{.Titre}}{{end}}
+
+{{define "main"}}
+<article id="detail-oeuvre">
+    <div id="img-oeuvre">
+        <img src="/{{.Image}}" alt="{{.Titre}}">
+    </div>
+    <div id="contenu-oeuvre">
+        <h1>{{.Titre}}</h1>
+        <p class="description">{{.Artiste}}</p>
+        <p class="description-complete">
+             {{.Description}}
+        </p>
+    </div>
+</article>
+{{end}}
